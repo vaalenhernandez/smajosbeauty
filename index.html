@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asesoría de marca personal &amp; crecimiento UGC — @smajosbeauty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --wine:#7B1E3A;
+    --wine-dark:#5A1329;
+    --wine-light:#973458;
+    --gold:#C9A227;
+    --gold-light:#e4c65c;
+    --cream:#F5F1EC;
+    --pink:#D9A5B3;
+    --ink:#242020;
+    --gray:#6b6461;
+    --border:#e4dcd2;
+    --green:#3f8a5f;
+    --green-bg:#eaf6ef;
+    --green-border:#cbe8d6;
+    --red:#b0405a;
+    --red-bg:#fbeef1;
+    --red-border:#f1c7d1;
+    --font-serif:'Playfair Display', Georgia, serif;
+    --font-sans:'Poppins', 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:var(--font-sans);
+    color:var(--ink);
+    background:#fbf9f6;
+    line-height:1.65;
+  }
+  button{font-family:inherit;}
+  a{color:var(--wine);}
+
+  /* ===== Layout ===== */
+  .app{display:flex; min-height:100vh;}
+
+  /* ---- Sidebar ---- */
+  nav.sidebar{
+    width:296px;
+    flex-shrink:0;
+    background:linear-gradient(165deg, var(--wine) 0%, var(--wine-dark) 100%);
+    color:#fff;
+    position:fixed;
+    top:0; left:0; bottom:0;
+    overflow-y:auto;
+    padding:26px 0 20px;
+    z-index:30;
+    display:flex;
+    flex-direction:column;
+  }
+  nav.sidebar .brand{
+    padding:0 22px 18px;
+    border-bottom:1px solid rgba(255,255,255,.15);
+    margin-bottom:14px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .brand-avatar{
+    width:46px; height:46px; border-radius:50%; flex-shrink:0;
+    background:linear-gradient(135deg, var(--gold), var(--pink));
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-serif); font-weight:700; font-size:17px; color:var(--wine-dark);
+    box-shadow:0 2px 8px rgba(0,0,0,.25);
+  }
+  nav.sidebar .brand .kicker{
+    font-size:10px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--pink);
+    margin-bottom:4px;
+  }
+  nav.sidebar .brand h1{
+    font-family:var(--font-serif);
+    font-size:18px;
+    margin:0 0 2px;
+    line-height:1.3;
+    font-weight:700;
+  }
+  nav.sidebar .brand .handle{
+    font-size:12px;
+    color:rgba(255,255,255,.75);
+  }
+
+  /* progress ring */
+  .progress-wrap{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 22px 18px;
+    border-bottom:1px solid rgba(255,255,255,.15);
+    margin-bottom:8px;
+  }
+  .ring{width:46px; height:46px; flex-shrink:0;}
+  .ring circle{fill:none; stroke-width:4;}
+  .ring .bg{stroke:rgba(255,255,255,.2);}
+  .ring .fg{stroke:var(--gold); stroke-linecap:round; transition:stroke-dashoffset .4s ease;}
+  .ring-text{font-size:12px; color:rgba(255,255,255,.85); line-height:1.4;}
+  .ring-text strong{display:block; font-size:14.5px; color:#fff;}
+
+  nav.sidebar ul{list-style:none; margin:0; padding:0; flex:1; overflow-y:auto;}
+  nav.sidebar li a, nav.sidebar li button.nav-item{
+    width:100%;
+    text-align:left;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:9px 22px;
+    color:rgba(255,255,255,.82);
+    text-decoration:none;
+    font-size:14px;
+    border:none;
+    background:transparent;
+    border-left:3px solid transparent;
+    cursor:pointer;
+    transition:.15s;
+  }
+  nav.sidebar li button.nav-item:hover{
+    background:rgba(255,255,255,.08);
+    color:#fff;
+  }
+  nav.sidebar li button.nav-item.active{
+    color:#fff;
+    background:rgba(255,255,255,.13);
+    border-left:3px solid var(--gold);
+    font-weight:600;
+  }
+  nav.sidebar li button.nav-item .icon{font-size:15px; flex-shrink:0; width:20px; text-align:center;}
+  nav.sidebar li button.nav-item .num{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:19px; height:19px;
+    border-radius:50%;
+    font-size:10.5px;
+    font-weight:700;
+    color:var(--gold);
+    border:1.5px solid rgba(201,162,39,.5);
+    flex-shrink:0;
+  }
+  nav.sidebar li button.nav-item.done .num{
+    background:var(--gold);
+    color:var(--wine-dark);
+    border-color:var(--gold);
+  }
+  nav.sidebar li button.nav-item .label{flex:1;}
+  nav.sidebar li button.nav-item .check{
+    font-size:13px;
+    color:var(--gold);
+    opacity:0;
+  }
+  nav.sidebar li button.nav-item.done .check{opacity:1;}
+
+  .menu-toggle{
+    display:none;
+    position:fixed;
+    top:14px; left:14px;
+    z-index:40;
+    background:var(--wine);
+    color:#fff;
+    border:none;
+    width:42px; height:42px;
+    border-radius:8px;
+    font-size:18px;
+    cursor:pointer;
+    box-shadow:0 2px 8px rgba(0,0,0,.25);
+  }
+  .sidebar-overlay{display:none;}
+
+  /* ---- Main content ---- */
+  main{
+    margin-left:296px;
+    flex:1;
+    max-width:960px;
+    padding:0 56px 40px;
+  }
+  .page{display:none; animation:fade .25s ease;}
+  .page.active{display:block;}
+  @keyframes fade{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+  /* Hero / resumen */
+  .hero{
+    padding:54px 40px 34px;
+    margin:36px 0 10px;
+    border-radius:20px;
+    background:
+      radial-gradient(circle at 90% -10%, rgba(201,162,39,.20), transparent 55%),
+      radial-gradient(circle at -5% 110%, rgba(217,165,179,.35), transparent 50%),
+      linear-gradient(155deg, var(--wine) 0%, var(--wine-dark) 100%);
+    color:#fff;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-top{display:flex; align-items:center; gap:18px; margin-bottom:18px;}
+  .hero-avatar{
+    width:64px; height:64px; border-radius:50%; flex-shrink:0;
+    background:linear-gradient(135deg, var(--gold), var(--pink));
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-serif); font-weight:700; font-size:24px; color:var(--wine-dark);
+    box-shadow:0 4px 14px rgba(0,0,0,.3);
+  }
+  .hero .kicker{
+    font-size:11.5px; letter-spacing:2px; text-transform:uppercase;
+    color:var(--gold-light); font-weight:700; margin-bottom:8px;
+  }
+  .hero h1{font-family:var(--font-serif); font-size:33px; margin:0 0 6px; line-height:1.2; color:#fff;}
+  .hero .sub{font-size:15px; color:rgba(255,255,255,.8); margin-bottom:6px;}
+  .hero p.lead{max-width:680px; color:rgba(255,255,255,.92); font-size:15px;}
+
+  .stat-row{display:flex; gap:14px; margin:22px 0 6px; flex-wrap:wrap;}
+  .stat-card{
+    background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.18);
+    backdrop-filter:blur(2px);
+    border-radius:14px;
+    padding:14px 18px;
+    min-width:140px;
+    flex:1;
+  }
+  .stat-card .stat-icon{font-size:20px; margin-bottom:4px;}
+  .stat-card .stat-value{font-family:var(--font-serif); font-size:23px; font-weight:700; color:#fff;}
+  .stat-card .stat-label{font-size:12px; color:rgba(255,255,255,.75); margin-top:2px;}
+  .stat-card.warn .stat-value{color:var(--gold-light);}
+  .stat-card.target{background:rgba(201,162,39,.22); border-color:var(--gold);}
+  .stat-card.target .stat-value{color:var(--gold-light);}
+
+  .objectives{
+    background:#fff; border-radius:14px; padding:22px 26px; margin:26px 0;
+    border:1px solid var(--border); box-shadow:0 2px 10px rgba(123,30,58,.05);
+  }
+  .objectives h3{margin:0 0 12px; font-size:13px; text-transform:uppercase; letter-spacing:.6px; color:var(--wine); display:flex; align-items:center; gap:8px;}
+  .obj-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px;}
+  .obj-list li{display:flex; align-items:flex-start; gap:10px; font-size:14.5px;}
+  .obj-list li .obj-icon{
+    width:24px; height:24px; border-radius:50%; background:var(--cream); color:var(--wine);
+    display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; margin-top:1px; font-weight:700;
+  }
+
+  .callout{
+    background:var(--cream); border-left:4px solid var(--gold); border-radius:10px;
+    padding:18px 22px; margin:18px 0 6px; color:#4a4340; display:flex; gap:12px; align-items:flex-start;
+  }
+  .callout .callout-icon{font-size:20px; flex-shrink:0;}
+  .callout strong{color:var(--wine);}
+
+  .cta-row{display:flex; gap:12px; margin-top:26px; flex-wrap:wrap;}
+
+  /* buttons */
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:11px 20px; border-radius:10px; border:none;
+    font-size:14px; font-weight:600; cursor:pointer;
+    transition:.15s;
+  }
+  .btn-primary{background:var(--gold); color:var(--wine-dark);}
+  .btn-primary:hover{background:var(--gold-light); transform:translateY(-1px);}
+  .btn-outline{background:rgba(255,255,255,.08); color:#fff; border:1.5px solid rgba(255,255,255,.5);}
+  .btn-outline:hover{background:rgba(255,255,255,.18);}
+  main .btn-primary{background:var(--wine); color:#fff;}
+  main .btn-primary:hover{background:var(--wine-dark);}
+  main .btn-outline{background:#fff; color:var(--wine); border:1.5px solid var(--wine);}
+  main .btn-outline:hover{background:var(--cream);}
+  .btn-ghost{background:transparent; color:var(--gray); border:1px solid var(--border);}
+  .btn-ghost:hover{background:var(--cream);}
+  .btn:disabled{opacity:.4; cursor:not-allowed;}
+
+  .copy-btn{
+    display:inline-flex; align-items:center; gap:6px;
+    padding:7px 14px; border-radius:20px;
+    background:#fff; border:1.5px solid var(--wine);
+    color:var(--wine); font-size:12.5px; font-weight:600;
+    cursor:pointer; transition:.15s; white-space:nowrap;
+  }
+  .copy-btn:hover{background:var(--wine); color:#fff;}
+  .copy-btn.copied{background:var(--green); border-color:var(--green); color:#fff;}
+
+  /* Section headers */
+  .page h2{
+    font-family:var(--font-serif);
+    font-size:26px; color:var(--wine);
+    padding-bottom:12px; margin:46px 0 20px;
+    display:flex; align-items:center; gap:12px;
+    border-bottom:2px solid var(--gold);
+  }
+  .page:first-of-type h2{margin-top:0;}
+  .section-icon{
+    width:38px; height:38px; border-radius:11px; flex-shrink:0;
+    background:var(--cream); display:flex; align-items:center; justify-content:center;
+    font-size:18px; border:1px solid var(--border);
+  }
+  .page h3{font-size:17.5px; color:var(--wine-dark); margin:28px 0 12px; font-weight:700;}
+  .page h4{font-size:15px; color:#3a3532; margin:20px 0 6px; font-weight:700;}
+  .page p{margin:0 0 14px; color:#2f2b29;}
+  ul.list, ol.list{padding-left:22px; margin:0 0 16px;}
+  ul.list li, ol.list li{margin-bottom:8px;}
+
+  blockquote{
+    background:var(--cream); border-left:4px solid var(--wine); margin:0;
+    padding:14px 18px; border-radius:8px; font-style:normal; color:#4a4340;
+    white-space:pre-line;
+  }
+  .quote-card{margin-bottom:22px;}
+  .quote-card .quote-actions{display:flex; justify-content:flex-end; margin-top:8px;}
+
+  .ig-mock{
+    display:flex; gap:14px; align-items:flex-start; background:#fff;
+    border:1px solid var(--border); border-radius:16px; padding:18px;
+    box-shadow:0 3px 14px rgba(123,30,58,.06);
+  }
+  .ig-avatar{
+    width:46px; height:46px; border-radius:50%; flex-shrink:0;
+    background:linear-gradient(135deg, var(--wine), var(--gold));
+    color:#fff; display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-family:var(--font-serif);
+  }
+  .ig-mock-body{flex:1;}
+  .ig-mock-handle{font-size:13px; font-weight:700; color:var(--ink); margin-bottom:6px;}
+  .ig-mock blockquote{background:transparent; border:none; padding:0; margin:0; color:var(--ink); font-size:14.5px;}
+
+  table{width:100%; border-collapse:collapse; margin:14px 0 26px; font-size:14px; border-radius:10px; overflow:hidden;}
+  th{background:var(--wine); color:#fff; text-align:left; padding:11px 12px; font-weight:600;}
+  td{padding:11px 12px; border-bottom:1px solid var(--border); border-right:1px solid var(--border); vertical-align:top;}
+  td:last-child, th:last-child{border-right:none;}
+  tr:nth-child(even) td{background:var(--cream);}
+
+  .pill{display:inline-block; padding:4px 13px; border-radius:20px; font-size:12px; font-weight:700; letter-spacing:.2px;}
+  .pill-grow{background:#f5ecd2; color:#8a6d10;}
+  .pill-sell{background:#f3dde4; color:var(--wine);}
+  .pill-connect{background:#f8e3e8; color:#a8546b;}
+  .type-icon{margin-right:6px;}
+
+  .swatch{display:inline-block; width:16px; height:16px; border-radius:4px; margin-right:8px; vertical-align:middle; border:1px solid rgba(0,0,0,.1);}
+
+  .divider{height:2px; background:var(--gold); border:none; margin:30px 0; opacity:.6;}
+
+  .closing{
+    background:linear-gradient(135deg, var(--wine), var(--wine-dark));
+    color:#fff; padding:28px 30px; border-radius:16px;
+    margin-top:16px; font-weight:600; font-size:15.5px; line-height:1.6;
+    display:flex; gap:14px; align-items:flex-start;
+  }
+  .closing .closing-icon{font-size:24px; flex-shrink:0;}
+
+  /* Insight cards (bien / falla, hacer / evitar) */
+  .insight-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:18px 0 26px;}
+  .insight-card{border-radius:14px; padding:18px 20px;}
+  .insight-card.good{background:var(--green-bg); border:1px solid var(--green-border);}
+  .insight-card.bad{background:var(--red-bg); border:1px solid var(--red-border);}
+  .insight-head{font-weight:700; font-size:14.5px; margin-bottom:10px; display:flex; align-items:center; gap:8px;}
+  .insight-card.good .insight-head{color:var(--green);}
+  .insight-card.bad .insight-head{color:var(--red);}
+  .insight-card ul{list-style:none; margin:0; padding:0;}
+  .insight-card li{display:flex; gap:8px; margin-bottom:10px; font-size:13.8px; color:#3a3532;}
+  .insight-card li .mark{flex-shrink:0;}
+  @media (max-width:700px){.insight-grid{grid-template-columns:1fr;}}
+
+  /* Engagement gauge */
+  .gauge-box{background:#fff; border:1px solid var(--border); border-radius:14px; padding:20px 24px; margin:16px 0 28px;}
+  .gauge-box h4{margin:0 0 14px;}
+  .gauge-track{position:relative; height:14px; background:var(--cream); border-radius:20px; margin:26px 4px 8px;}
+  .gauge-band{position:absolute; top:0; bottom:0; background:rgba(63,138,95,.35); border-radius:20px;}
+  .gauge-marker{position:absolute; top:-5px; width:24px; height:24px; margin-left:-12px; border-radius:50%; background:var(--wine); border:3px solid #fff; box-shadow:0 2px 6px rgba(0,0,0,.3);}
+  .gauge-marker-label{position:absolute; top:-32px; transform:translateX(-50%); font-size:11.5px; font-weight:700; color:var(--wine); white-space:nowrap;}
+  .gauge-scale{display:flex; justify-content:space-between; font-size:11.5px; color:var(--gray); margin:0 4px;}
+  .gauge-legend{display:flex; gap:22px; margin-top:16px; flex-wrap:wrap; font-size:13px; color:#3a3532;}
+  .gauge-legend .dot{display:inline-block; width:11px; height:11px; border-radius:50%; margin-right:6px; vertical-align:middle;}
+  .dot-wine{background:var(--wine);}
+  .dot-green{background:rgba(63,138,95,.6);}
+
+  /* Checklist items */
+  .task-card{border-radius:14px; padding:16px 20px 6px; margin-bottom:22px;}
+  .task-card.good{background:var(--green-bg); border:1px solid var(--green-border);}
+  .task-card.bad{background:var(--red-bg); border:1px solid var(--red-border);}
+  .task-card.neutral{background:var(--cream); border:1px solid var(--border);}
+  .task{
+    display:flex; align-items:flex-start; gap:10px;
+    padding:10px 12px; border:1px solid rgba(0,0,0,.06); border-radius:8px;
+    margin-bottom:8px; background:#fff; transition:.15s;
+  }
+  .task:hover{border-color:var(--gold);}
+  .task input[type=checkbox]{
+    appearance:none; -webkit-appearance:none;
+    width:19px; height:19px; border-radius:5px; border:2px solid var(--wine);
+    flex-shrink:0; margin-top:1px; cursor:pointer; position:relative; transition:.15s;
+  }
+  .task input[type=checkbox]:checked{background:var(--wine);}
+  .task input[type=checkbox]:checked::after{
+    content:"✓"; position:absolute; top:-3px; left:2px; color:#fff; font-size:13px; font-weight:700;
+  }
+  .task label{cursor:pointer; font-size:14.5px; color:#2f2b29;}
+  .task.checked label{color:var(--gray); text-decoration:line-through;}
+  .task-group-title{
+    display:flex; align-items:center; justify-content:space-between;
+    margin:0 0 10px;
+  }
+  .task-count{font-size:12px; color:var(--gray); background:#fff; padding:3px 10px; border-radius:12px; border:1px solid var(--border);}
+
+  /* Accordion (reels ideas) */
+  .accordion-item{
+    border:1px solid var(--border); border-radius:12px; margin-bottom:12px; overflow:hidden; background:#fff;
+    box-shadow:0 2px 8px rgba(123,30,58,.04);
+  }
+  .accordion-header{
+    width:100%; display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:15px 18px; background:var(--cream); border:none; cursor:pointer;
+    font-size:15px; font-weight:700; color:var(--wine-dark); text-align:left;
+  }
+  .accordion-header .htitle{display:flex; align-items:center; gap:10px;}
+  .accordion-header .hnum{
+    width:26px; height:26px; border-radius:50%; background:var(--wine); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-size:12.5px; flex-shrink:0;
+  }
+  .accordion-header .chev{transition:transform .2s ease; color:var(--gold); font-size:13px;}
+  .accordion-item.open .accordion-header .chev{transform:rotate(180deg);}
+  .accordion-body{
+    max-height:0; overflow:hidden; transition:max-height .25s ease;
+    padding:0 18px;
+  }
+  .accordion-item.open .accordion-body{max-height:600px; padding:14px 18px 18px;}
+  .accordion-body ul.list{margin-bottom:8px;}
+  .accordion-body .copy-btn{margin-top:4px;}
+
+  /* Pricing cards */
+  .pricing-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:18px 0 24px;}
+  .price-card{background:#fff; border:1px solid var(--border); border-radius:14px; padding:20px; text-align:center;}
+  .price-card.highlight{border:2px solid var(--gold); position:relative;}
+  .price-card .price-tag{font-size:11px; color:var(--gold); font-weight:700; text-transform:uppercase; letter-spacing:.5px;}
+  .price-card .price-icon{font-size:26px; margin:6px 0;}
+  .price-card .price-name{font-weight:700; color:var(--wine-dark); margin-bottom:6px; font-size:14.5px;}
+  .price-card .price-value{font-family:var(--font-serif); font-size:19px; color:var(--wine); font-weight:700; margin-bottom:6px;}
+  .price-card .price-desc{font-size:12.5px; color:var(--gray);}
+  @media (max-width:700px){.pricing-grid{grid-template-columns:1fr;}}
+
+  /* Steps */
+  .steps-row{display:flex; align-items:stretch; gap:10px; margin:18px 0 26px; flex-wrap:wrap;}
+  .step{flex:1; min-width:160px; background:#fff; border:1px solid var(--border); border-radius:14px; padding:18px; text-align:center;}
+  .step-num{width:32px; height:32px; border-radius:50%; background:var(--wine); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; margin:0 auto 10px;}
+  .step-title{font-weight:700; color:var(--wine-dark); margin-bottom:6px; font-size:14.5px;}
+  .step-desc{font-size:12.8px; color:var(--gray);}
+  .step-arrow{display:flex; align-items:center; justify-content:center; color:var(--gold); font-size:20px; flex-shrink:0;}
+  @media (max-width:700px){.step-arrow{transform:rotate(90deg); margin:-6px auto;}}
+
+  /* Wireframe */
+  .wireframe{background:#fff; border:1px solid var(--border); border-radius:16px; padding:14px; margin:18px 0 28px; box-shadow:0 3px 14px rgba(123,30,58,.06);}
+  .wireframe-bar{display:flex; gap:6px; padding:4px 6px 14px;}
+  .wireframe-bar span{width:10px; height:10px; border-radius:50%; background:var(--border);}
+  .wf-block{
+    border:1.5px dashed var(--border); border-radius:10px; padding:13px 16px;
+    margin-bottom:8px; font-size:13.5px; color:#4a4340; background:#fdfcfb;
+    display:flex; align-items:center; gap:10px;
+  }
+  .wf-block .wf-icon{font-size:16px;}
+  .wf-block.wf-hero{background:linear-gradient(120deg, var(--cream), #fff); border-color:var(--gold); font-weight:700; color:var(--wine-dark);}
+  .wf-block.wf-video{border-style:solid; border-color:var(--wine); background:#fdf3f6;}
+
+  /* Moodboard */
+  .moodboard{display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin:16px 0 26px;}
+  .swatch-lg{
+    border:none; cursor:pointer; border-radius:14px; padding:0; height:110px;
+    display:flex; flex-direction:column; align-items:center; justify-content:flex-end;
+    position:relative; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,.08);
+  }
+  .swatch-lg .swatch-label{
+    background:rgba(255,255,255,.92); width:100%; padding:8px 4px; text-align:center;
+    font-size:11px; font-weight:700; color:var(--ink); line-height:1.35;
+  }
+  .swatch-lg .swatch-copied-badge{position:absolute; top:8px; right:8px; font-size:11px; background:#fff; padding:2px 8px; border-radius:10px; opacity:0;}
+  @media (max-width:700px){.moodboard{grid-template-columns:repeat(2,1fr);}}
+
+  .font-preview{display:flex; gap:16px; margin:16px 0 26px; flex-wrap:wrap;}
+  .font-sample{flex:1; min-width:220px; background:#fff; border:1px solid var(--border); border-radius:14px; padding:22px;}
+  .font-sample .big{font-size:44px; line-height:1; margin-bottom:10px; color:var(--wine);}
+  .font-sample.serif-sample .big{font-family:var(--font-serif); font-weight:700;}
+  .font-sample.sans-sample .big{font-family:var(--font-sans); font-weight:700;}
+  .font-sample .cap{font-size:12.5px; color:var(--gray); text-transform:uppercase; letter-spacing:.5px;}
+
+  /* Content plan week icon cards */
+  .type-chip{display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--wine-dark);}
+
+  /* Bottom nav */
+  .page-nav{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-top:44px; padding-top:20px; border-top:1px solid var(--border);
+    gap:12px; flex-wrap:wrap;
+  }
+  .page-nav .center-info{font-size:13px; color:var(--gray); text-align:center;}
+  .mark-done-btn{display:flex; align-items:center; gap:8px;}
+  .mark-done-btn.is-done{background:var(--green); color:#fff; border-color:var(--green);}
+
+  footer.pagefoot{
+    max-width:960px; margin:0 0 40px 296px; padding:0 56px; color:var(--gray); font-size:12.5px;
+  }
+
+  @media (max-width:880px){
+    nav.sidebar{
+      transform:translateX(-100%); transition:transform .2s ease;
+      width:280px; box-shadow:4px 0 20px rgba(0,0,0,.2);
+    }
+    nav.sidebar.open{transform:translateX(0);}
+    .sidebar-overlay{
+      display:none; position:fixed; inset:0; background:rgba(0,0,0,.4); z-index:25;
+    }
+    .sidebar-overlay.show{display:block;}
+    main{margin-left:0; padding:0 18px 40px;}
+    .hero{padding:70px 22px 28px; margin-top:14px;}
+    .menu-toggle{display:block;}
+    footer.pagefoot{margin-left:0; padding:0 18px;}
+    .page-nav{flex-direction:column; align-items:stretch;}
+    .page-nav .btn{justify-content:center;}
+    .insight-grid{grid-template-columns:1fr;}
+    .pricing-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="app">
+  <nav class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-avatar">MJ</div>
+      <div>
+        <div class="kicker">Asesoría de marca</div>
+        <h1>María José</h1>
+        <div class="handle">@smajosbeauty</div>
+      </div>
+    </div>
+
+    <div class="progress-wrap">
+      <svg class="ring" viewBox="0 0 48 48">
+        <circle class="bg" cx="24" cy="24" r="20"></circle>
+        <circle class="fg" id="ringFg" cx="24" cy="24" r="20" stroke-dasharray="125.6" stroke-dashoffset="125.6" transform="rotate(-90 24 24)"></circle>
+      </svg>
+      <div class="ring-text"><strong id="progressLabel">0/10</strong>secciones revisadas</div>
+    </div>
+
+    <ul id="navList">
+      <li><button class="nav-item" data-target="resumen"><span class="icon">🏠</span><span class="label">Resumen</span></button></li>
+      <li><button class="nav-item" data-target="diagnostico"><span class="icon">🔍</span><span class="num">1</span><span class="label">Diagnóstico</span><span class="check">✓</span></button></li>
+      <li><button class="nav-item" data-target="bio"><span class="icon">✍️</span><span class="num">2</span><span class="label">Bio optimizada</span><span class="check">✓</span></button></li>
+      <li><button class="nav-item" data-target="plan-accion"><span class="icon">🧭</span><span class="num">3</span><span class="label">Plan de acción</span><span class="check">✓</span></button></li>
+      <li><button class="nav-item" data-target="plan-contenido"><span class="icon">📅</span><span class="num">4</span><span class="label">Plan de contenido</span><span class="check">✓</span></button></li>
+      <li><button class="nav-item" data-target="ideas-guiones"><span class="icon">🎬</span><span class="num">5</span><span class="label">Ideas + guiones</span><span class="check">✓</span></button></li>
+      <li><button class="nav-item" data-target="monetizacion"><span class="icon">💰</span><span class="num">6</span><span class="label">Monetización UGC</span><span class="check">✓</span></button></li>
+      <li><button class="nav-item" data-target="prospeccion"><span class="icon">🤝</span><span class="num">7</span><span class="label">Prospección de marcas</span><span class="check">✓</span></button></li>
+      <li><button class="nav-item" data-target="portafolio"><span class="icon">🗂️</span><span class="num">8</span><span class="label">Análisis de portafolio</span><span class="check">✓</span></button></li>
+      <li><button class="nav-item" data-target="identidad"><span class="icon">🎨</span><span class="num">9</span><span class="label">Identidad de marca</span><span class="check">✓</span></button></li>
+      <li><button class="nav-item" data-target="voz"><span class="icon">🎤</span><span class="num">10</span><span class="label">Voz y comunicación</span><span class="check">✓</span></button></li>
+    </ul>
+  </nav>
+
+  <main id="main">
+
+    <!-- RESUMEN -->
+    <section class="page active" id="resumen" data-order="0">
+      <div class="hero">
+        <div class="hero-top">
+          <div class="hero-avatar">MJ</div>
+          <div>
+            <div class="kicker">Estrategia de crecimiento &amp; monetización UGC</div>
+            <h1>Asesoría de marca personal</h1>
+          </div>
+        </div>
+        <div class="sub">Julio 2026 · @smajosbeauty · Preparado a partir del análisis de tu perfil de Instagram y tu portafolio</div>
+        <p class="lead">Este documento resume el diagnóstico de tu perfil de Instagram y tu portafolio, junto con un plan de acción práctico para crecer, posicionarte y monetizar como creadora UGC en los próximos 3 meses.</p>
+
+        <div class="stat-row">
+          <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-value">23,7K</div><div class="stat-label">Seguidores actuales</div></div>
+          <div class="stat-card target"><div class="stat-icon">🎯</div><div class="stat-value">+5.000</div><div class="stat-label">Meta a 3 meses (→ ~28.700)</div></div>
+          <div class="stat-card"><div class="stat-icon">🗂️</div><div class="stat-value">633</div><div class="stat-label">Publicaciones</div></div>
+          <div class="stat-card warn"><div class="stat-icon">📉</div><div class="stat-value">~0,3%</div><div class="stat-label">Engagement promedio (meta: 2-5%)</div></div>
+        </div>
+
+        <div class="cta-row">
+          <button class="btn btn-primary" data-goto="diagnostico">Empezar por el diagnóstico →</button>
+          <button class="btn btn-outline" data-goto="ideas-guiones">Ir directo a ideas y guiones</button>
+        </div>
+      </div>
+
+      <div class="objectives">
+        <h3>🎯 Tus objetivos declarados</h3>
+        <ul class="obj-list">
+          <li><span class="obj-icon">1</span> Crecer +5.000 seguidores en 3 meses (de 23.700 a ~28.700) y consolidar comunidad</li>
+          <li><span class="obj-icon">2</span> Publicar mínimo 3 veces por semana</li>
+          <li><span class="obj-icon">3</span> Monetizar al menos $1.000.000 COP en el primer mes como creadora de contenido</li>
+        </ul>
+      </div>
+
+      <div class="callout">
+        <div class="callout-icon">💡</div>
+        <div>Tu punto de partida ya es fuerte: <strong>23.700 seguidores</strong>, 633 publicaciones y colaboraciones pagadas reales con marcas como SHEIN y negocios de gastronomía. Tu meta de sumar <strong>5.000 seguidores más</strong> en 3 meses es alcanzable, y en este documento la acompañamos de un salto en engagement: hoy tus publicaciones se mueven en 0,3%-0,4% de interacción, muy por debajo del 2%-5% saludable para tu tamaño de cuenta. Subir ese engagement no reemplaza la meta de seguidores, la acelera: el algoritmo muestra más tu contenido cuando genera interacción. Usa el menú de la izquierda o los botones "Copiar" para llevarte cada pieza directo a donde la necesites.</div>
+      </div>
+    </section>
+
+    <!-- 1. DIAGNÓSTICO -->
+    <section class="page" id="diagnostico" data-order="1">
+      <h2><span class="section-icon">🔍</span> 1. Diagnóstico</h2>
+
+      <h3>Estado actual de tu marca personal</h3>
+      <p>Hoy tienes una cuenta verificada con 23.700 seguidores, 633 publicaciones y 1.508 seguidos, posicionada en tu bio como "Creadora de Contenido &amp; Mentora en Imagen". Ya tienes evidencia de monetización real: colaboraciones pagadas con SHEIN, con la marca de la camiseta de la Selección Colombia, con negocios de repostería y hamburguesas, y con una línea de maquillaje (Vogue Boombastic). No estás empezando de cero: estás sentada sobre un activo que hoy no estás explotando al máximo.</p>
+
+      <div class="insight-grid">
+        <div class="insight-card good">
+          <div class="insight-head">✅ Qué estás haciendo bien</div>
+          <ul>
+            <li><span class="mark">•</span> Ya construiste una audiencia real (23.7K) y una cuenta verificada.</li>
+            <li><span class="mark">•</span> Ya demostraste que las marcas confían en ti (moda, belleza, gastronomía, deporte).</li>
+            <li><span class="mark">•</span> Te desenvuelves bien en cámara: hooks de texto, presencia y naturalidad.</li>
+            <li><span class="mark">•</span> Tienes un ángulo diferenciador poco común: ingeniera + modelo + creadora.</li>
+          </ul>
+        </div>
+        <div class="insight-card bad">
+          <div class="insight-head">⚠️ Qué está fallando</div>
+          <ul>
+            <li><span class="mark">•</span> Tu bio promete mentoría en imagen, pero el feed mezcla temas sin hilo conductor.</li>
+            <li><span class="mark">•</span> No hay identidad visual unificada: cada bloque tiene su propia estética.</li>
+            <li><span class="mark">•</span> El engagement no acompaña el tamaño de tu cuenta (ver gráfico abajo).</li>
+            <li><span class="mark">•</span> No hay una oferta de servicios visible en tu contenido.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="gauge-box">
+        <h4>📊 Tu engagement actual vs. el rango saludable</h4>
+        <div class="gauge-track">
+          <div class="gauge-band" style="left:33.3%; width:50%;"></div>
+          <div class="gauge-marker" style="left:5.8%;">
+            <div class="gauge-marker-label">Tú: ~0,35%</div>
+          </div>
+        </div>
+        <div class="gauge-scale"><span>0%</span><span>1,5%</span><span>3%</span><span>4,5%</span><span>6%</span></div>
+        <div class="gauge-legend">
+          <span><span class="dot dot-wine"></span>Tu engagement actual</span>
+          <span><span class="dot dot-green"></span>Rango saludable para 23,7K seguidores (2%-5%)</span>
+        </div>
+      </div>
+
+      <h3>Oportunidades claras de crecimiento</h3>
+      <ul class="list">
+        <li>Reposicionar tu feed para que la mentoría en imagen sea el eje central, y que el contenido de marca funcione como prueba social en lugar de ruido visual.</li>
+        <li>Capitalizar tus colaboraciones ya hechas como caso de éxito en tu portafolio y en tus mensajes de prospección.</li>
+        <li>Subir tus tarifas: con 23.7K seguidores y colaboraciones ya cerradas, probablemente estás cobrando menos de lo que tu cuenta ya vale en el mercado.</li>
+        <li>Subir tu engagement acelera también la meta de +5.000 seguidores: el algoritmo le muestra tu contenido a más gente cuando genera interacción, así que un salto de 0,3% a 2% te ayuda a llegar más rápido a los 28.700.</li>
+      </ul>
+
+      <h3>Qué percepción genera tu perfil hoy</h3>
+      <p>Hoy tu perfil se percibe como el de una mujer atractiva, carismática y con una vida activa e interesante (modelo, viajes, reinados, comida, deporte) — pero no como el de una especialista en imagen ni como el de una creadora UGC profesional a la que contratar. Falta claridad: "¿para qué te sigo?" y "¿qué puedo contratarte a hacer?" no tienen una respuesta inmediata al entrar a tu perfil. Esa es la brecha que vamos a cerrar en este documento.</p>
+
+      <div class="page-nav"></div>
+    </section>
+
+    <!-- 2. BIO -->
+    <section class="page" id="bio" data-order="2">
+      <h2><span class="section-icon">✍️</span> 2. Bio optimizada</h2>
+      <p>Tres opciones. Elige la que más se sienta "tú" en voz alta — la bio funciona mejor cuando suena a algo que realmente dirías. Usa el botón "Copiar" para pegarla directo en Instagram.</p>
+
+      <h3>Opción 1 — Mentora de imagen (tu ángulo original, más claro)</h3>
+      <div class="quote-card">
+        <div class="ig-mock">
+          <div class="ig-avatar">MJ</div>
+          <div class="ig-mock-body">
+            <div class="ig-mock-handle">smajosbeauty</div>
+            <blockquote id="bio1">María José ✨ Mentora de imagen y feminidad
+💖 Ayudo a mujeres a verse y sentirse más seguras con su imagen
+🎥 Creadora de contenido | marcas ya confían en mí
+👇 Mira mi portafolio y trabajemos juntos</blockquote>
+          </div>
+        </div>
+        <div class="quote-actions"><button class="copy-btn" data-target="bio1">📋 Copiar bio</button></div>
+      </div>
+
+      <h3>Opción 2 — Creadora de contenido, tono girly y cercano</h3>
+      <div class="quote-card">
+        <div class="ig-mock">
+          <div class="ig-avatar">MJ</div>
+          <div class="ig-mock-body">
+            <div class="ig-mock-handle">smajosbeauty</div>
+            <blockquote id="bio2">María José 👑 Creadora de contenido
+✨ Moda, belleza, lifestyle y todo lo que me inspira
+🎀 Marcas que ya confiaron en mí: SHEIN y más
+💌 Escríbeme y creemos algo lindo juntos</blockquote>
+          </div>
+        </div>
+        <div class="quote-actions"><button class="copy-btn" data-target="bio2">📋 Copiar bio</button></div>
+      </div>
+
+      <h3>Opción 3 — Híbrida y cercana <span style="background:var(--gold); color:var(--wine-dark); font-size:11px; font-weight:700; padding:3px 10px; border-radius:10px; vertical-align:middle;">⭐ Tu favorita</span></h3>
+      <div class="quote-card">
+        <div class="ig-mock">
+          <div class="ig-avatar">MJ</div>
+          <div class="ig-mock-body">
+            <div class="ig-mock-handle">smajosbeauty</div>
+            <blockquote id="bio3">Soy María José 👋 Ingeniera, modelo y creadora
+Te ayudo a elevar tu imagen y conectar con tu feminidad ✨
+🎬 UGC para marcas y collabs · 💌 DM para trabajar juntos</blockquote>
+          </div>
+        </div>
+        <div class="quote-actions"><button class="copy-btn" data-target="bio3">📋 Copiar bio</button></div>
+      </div>
+
+      <p>En los tres casos deja el link de tu portafolio como único enlace, y usa el campo de correo electrónico de Instagram para que las marcas puedan escribirte sin pasar por DM.</p>
+
+      <div class="page-nav"></div>
+    </section>
+
+    <!-- 3. PLAN DE ACCIÓN -->
+    <section class="page" id="plan-accion" data-order="3">
+      <h2><span class="section-icon">🧭</span> 3. Plan de acción claro</h2>
+
+      <h3>Mentalidad</h3>
+      <h4>💭 Deja de compararte</h4>
+      <p>Compararte con otras creadoras solo mide vanidad (seguidores, likes de otras cuentas). Lo que sí debes medir es tu propio negocio: mensajes enviados a marcas, cotizaciones respondidas, contratos cerrados. No revises cuentas de otras creadoras antes de grabar o publicar tu propio contenido.</p>
+      <h4>🎯 Enfócate en objetivos alcanzables</h4>
+      <p>Cambia "crecer seguidores" por metas semanales que dependen 100% de ti: publicar 3 veces, escribir a 5 marcas, actualizar una sección del portafolio. El crecimiento y los ingresos son la consecuencia de estas acciones repetidas, no el objetivo diario en sí.</p>
+      <h4>🌱 Sostén la constancia sin perfeccionismo</h4>
+      <p>Define tu mínimo viable de contenido: celular, luz natural, sin edición compleja. Permítete publicar contenido al 80% en lugar de no publicar por buscar el 100%. La constancia vale más que una pieza perfecta cada mes.</p>
+
+      <h3>Estrategia de contenido</h3>
+
+      <div class="task-card good">
+        <div class="task-group-title"><strong>✅ Empieza a hacer esto</strong> <span class="task-count" data-group="empezar"></span></div>
+        <div class="task"><input type="checkbox" id="t-emp-1" data-key="t-emp-1"><label for="t-emp-1">Contenido educativo corto sobre imagen y feminidad, con tu voz y tu experiencia real.</label></div>
+        <div class="task"><input type="checkbox" id="t-emp-2" data-key="t-emp-2"><label for="t-emp-2">Detrás de cámara de tus colaboraciones: mostrar el proceso, no solo el resultado final.</label></div>
+        <div class="task"><input type="checkbox" id="t-emp-3" data-key="t-emp-3"><label for="t-emp-3">Storytime y opinión personal: momentos de tu camino como ingeniera, modelo y creadora.</label></div>
+        <div class="task"><input type="checkbox" id="t-emp-4" data-key="t-emp-4"><label for="t-emp-4">Vlogs diarios cortos con recomendaciones generales (lugares, productos, rutina, tips) — esto refuerza que eres creadora de contenido en general, no solo de imagen.</label></div>
+        <div class="task"><input type="checkbox" id="t-emp-5" data-key="t-emp-5"><label for="t-emp-5"><strong>Más estratégico:</strong> define 1-2 pilares de contenido fijos (por ejemplo, imagen/feminidad + vlogs de vida real) para que cada publicación construya la misma percepción, en vez de piezas sueltas sin dirección.</label></div>
+      </div>
+
+      <div class="task-card bad">
+        <div class="task-group-title"><strong>🚫 Deja de hacer esto</strong> <span class="task-count" data-group="dejar"></span></div>
+        <div class="task"><input type="checkbox" id="t-dej-1" data-key="t-dej-1"><label for="t-dej-1">Publicar temáticas muy distintas sin curaduría entre sí, sin conectarlas a tu propuesta de valor.</label></div>
+        <div class="task"><input type="checkbox" id="t-dej-2" data-key="t-dej-2"><label for="t-dej-2">Forzar tu forma de hablar o actuar frente a cámara: se nota cuando no es natural. Habla como le hablarías a una amiga, no como en un comercial.</label></div>
+      </div>
+
+      <div class="task-card neutral">
+        <div class="task-group-title"><strong>💬 Conexión y autenticidad</strong> <span class="task-count" data-group="conexion"></span></div>
+        <div class="task"><input type="checkbox" id="t-con-1" data-key="t-con-1"><label for="t-con-1">Habla a cámara con tu voz real, no solo lip sync o trends genéricos.</label></div>
+        <div class="task"><input type="checkbox" id="t-con-2" data-key="t-con-2"><label for="t-con-2">Comparte opiniones y anécdotas, no solo estética.</label></div>
+        <div class="task"><input type="checkbox" id="t-con-3" data-key="t-con-3"><label for="t-con-3">Responde comentarios y DMs activamente.</label></div>
+        <div class="task"><input type="checkbox" id="t-con-4" data-key="t-con-4"><label for="t-con-4">Muestra momentos sin filtro: bloopers, risas, detrás de cámara.</label></div>
+      </div>
+
+      <div class="page-nav"></div>
+    </section>
+
+    <!-- 4. PLAN DE CONTENIDO -->
+    <section class="page" id="plan-contenido" data-order="4">
+      <h2><span class="section-icon">📅</span> 4. Plan de contenido (3 publicaciones semanales)</h2>
+      <p>Plantilla repetible que puedes usar semana a semana. Rota los temas según lo que tengas disponible (colaboración activa, viaje, evento).</p>
+
+      <table>
+        <tr><th>Día</th><th>Tipo</th><th>Idea específica</th><th>Objetivo</th></tr>
+        <tr><td>Lunes</td><td><span class="type-chip">🎥 Reel</span></td><td>Tip rápido de imagen/postura conectado a tu bio ("3 errores que bloquean tu energía femenina")</td><td><span class="pill pill-grow">Crecer</span></td></tr>
+        <tr><td>Miércoles</td><td><span class="type-chip">🖼️ Carrusel</span></td><td>Detrás de cámara de una colaboración pagada: cómo fue el proceso, qué te pidió la marca</td><td><span class="pill pill-sell">Vender</span></td></tr>
+        <tr><td>Viernes</td><td><span class="type-chip">📸 Reel / Story</span></td><td>Storytime u opinión personal sobre tu camino (ingeniera → modelo → creadora)</td><td><span class="pill pill-connect">Conectar</span></td></tr>
+      </table>
+
+      <h3>Ejemplo de mes completo (4 semanas)</h3>
+
+      <div class="task-card neutral">
+        <div class="task-group-title"><strong>📌 Marca cada publicación cuando la subas</strong> <span class="task-count" data-group="mes"></span></div>
+
+        <div class="task"><input type="checkbox" id="t-s1r" data-key="t-s1r"><label for="t-s1r"><span class="pill pill-grow">S1 Reel</span> "Tu postura te está bloqueando la energía femenina": 3 posturas que restan vs. suman</label></div>
+        <div class="task"><input type="checkbox" id="t-s1c" data-key="t-s1c"><label for="t-s1c"><span class="pill pill-sell">S1 Carrusel</span> Behind the scenes: cómo fue la colaboración con SHEIN</label></div>
+        <div class="task"><input type="checkbox" id="t-s1s" data-key="t-s1s"><label for="t-s1s"><span class="pill pill-connect">S1 Story</span> Storytime: por qué dejaste la ingeniería activa por la creación de contenido</label></div>
+
+        <div class="task"><input type="checkbox" id="t-s2r" data-key="t-s2r"><label for="t-s2r"><span class="pill pill-grow">S2 Reel</span> 3 prendas que toda mujer necesita para verse más femenina sin gastar de más</label></div>
+        <div class="task"><input type="checkbox" id="t-s2c" data-key="t-s2c"><label for="t-s2c"><span class="pill pill-sell">S2 Carrusel</span> Cómo cotizas y trabajas con marcas paso a paso</label></div>
+        <div class="task"><input type="checkbox" id="t-s2s" data-key="t-s2s"><label for="t-s2s"><span class="pill pill-connect">S2 Story</span> Un día en tu vida como creadora + modelo</label></div>
+
+        <div class="task"><input type="checkbox" id="t-s3r" data-key="t-s3r"><label for="t-s3r"><span class="pill pill-grow">S3 Reel</span> Cómo cambia tu imagen con solo cambiar tu postura y tu mirada a cámara</label></div>
+        <div class="task"><input type="checkbox" id="t-s3c" data-key="t-s3c"><label for="t-s3c"><span class="pill pill-sell">S3 Carrusel</span> Antes/después de una colaboración: producto + resultado en redes de la marca</label></div>
+        <div class="task"><input type="checkbox" id="t-s3s" data-key="t-s3s"><label for="t-s3s"><span class="pill pill-connect">S3 Story</span> Lo que nadie te dice de ser creadora de contenido en Colombia</label></div>
+
+        <div class="task"><input type="checkbox" id="t-s4r" data-key="t-s4r"><label for="t-s4r"><span class="pill pill-grow">S4 Reel</span> 3 errores comunes al grabar contenido para marcas</label></div>
+        <div class="task"><input type="checkbox" id="t-s4c" data-key="t-s4c"><label for="t-s4c"><span class="pill pill-sell">S4 Carrusel</span> Casos de éxito: resumen visual de 3 marcas con las que ya trabajaste</label></div>
+        <div class="task"><input type="checkbox" id="t-s4s" data-key="t-s4s"><label for="t-s4s"><span class="pill pill-connect">S4 Story</span> Q&amp;A con tu comunidad sobre imagen, feminidad o tu camino</label></div>
+      </div>
+
+      <div class="page-nav"></div>
+    </section>
+
+    <!-- 5. IDEAS + GUIONES -->
+    <section class="page" id="ideas-guiones" data-order="5">
+      <h2><span class="section-icon">🎬</span> 5. Ideas de contenido + guiones</h2>
+      <p>5 reels con guion listo. Haz clic en cada uno para abrirlo y copiar el guion completo.</p>
+
+      <h3>Reels con hook + desarrollo + CTA</h3>
+
+      <div class="accordion-item">
+        <button class="accordion-header"><span class="htitle"><span class="hnum">1</span>Tu postura habla antes que tú</span><span class="chev">▾</span></button>
+        <div class="accordion-body">
+          <ul class="list">
+            <li><strong>Hook:</strong> "Nadie te dijo que tu postura habla antes que tú"</li>
+            <li><strong>Desarrollo:</strong> muestra 3 posturas que restan presencia vs. 3 que la elevan, demostrando cada una a cámara</li>
+            <li><strong>CTA:</strong> "Guarda este video y practícalo esta semana frente al espejo. Sígueme para más tips de imagen."</li>
+          </ul>
+          <span id="script1" style="display:none">Hook: Nadie te dijo que tu postura habla antes que tú
+Desarrollo: muestra 3 posturas que restan presencia vs. 3 que la elevan, demostrando cada una a cámara
+CTA: Guarda este video y practícalo esta semana frente al espejo. Sígueme para más tips de imagen.</span>
+          <button class="copy-btn" data-target="script1">📋 Copiar guion</button>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-header"><span class="htitle"><span class="hnum">2</span>Así fue trabajar con la Selección Colombia</span><span class="chev">▾</span></button>
+        <div class="accordion-body">
+          <ul class="list">
+            <li><strong>Hook:</strong> "Así fue trabajar con la Selección Colombia sin ser una 'influencer famosa'"</li>
+            <li><strong>Desarrollo:</strong> cuenta el proceso real, cómo llegó la marca, qué te pidieron, cómo te preparaste</li>
+            <li><strong>CTA:</strong> "¿Eres marca y quieres contenido así? Escríbeme, el link está en mi bio."</li>
+          </ul>
+          <span id="script2" style="display:none">Hook: Así fue trabajar con la Selección Colombia sin ser una influencer famosa
+Desarrollo: cuenta el proceso real, cómo llegó la marca, qué te pidieron, cómo te preparaste
+CTA: ¿Eres marca y quieres contenido así? Escríbeme, el link está en mi bio.</span>
+          <button class="copy-btn" data-target="script2">📋 Copiar guion</button>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-header"><span class="htitle"><span class="hnum">3</span>De ingeniera mecatrónica a creadora de contenido</span><span class="chev">▾</span></button>
+        <div class="accordion-body">
+          <ul class="list">
+            <li><strong>Hook:</strong> "De ingeniera mecatrónica a creadora de contenido: así fue el cambio"</li>
+            <li><strong>Desarrollo:</strong> storytime breve con 3 momentos clave y un aprendizaje de cada uno</li>
+            <li><strong>CTA:</strong> "Cuéntame en comentarios si tú también estás en un cambio de carrera."</li>
+          </ul>
+          <span id="script3" style="display:none">Hook: De ingeniera mecatrónica a creadora de contenido: así fue el cambio
+Desarrollo: storytime breve con 3 momentos clave y un aprendizaje de cada uno
+CTA: Cuéntame en comentarios si tú también estás en un cambio de carrera.</span>
+          <button class="copy-btn" data-target="script3">📋 Copiar guion</button>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-header"><span class="htitle"><span class="hnum">4</span>3 prendas que toda mujer necesita</span><span class="chev">▾</span></button>
+        <div class="accordion-body">
+          <ul class="list">
+            <li><strong>Hook:</strong> "3 prendas que toda mujer necesita para verse más femenina sin gastar de más"</li>
+            <li><strong>Desarrollo:</strong> muestra cada prenda puesta, con un tip rápido de combinación</li>
+            <li><strong>CTA:</strong> "Guarda este video para tu próxima compra. Sígueme para más tips."</li>
+          </ul>
+          <span id="script4" style="display:none">Hook: 3 prendas que toda mujer necesita para verse más femenina sin gastar de más
+Desarrollo: muestra cada prenda puesta, con un tip rápido de combinación
+CTA: Guarda este video para tu próxima compra. Sígueme para más tips.</span>
+          <button class="copy-btn" data-target="script4">📋 Copiar guion</button>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-header"><span class="htitle"><span class="hnum">5</span>Lo que las marcas buscan en una creadora UGC</span><span class="chev">▾</span></button>
+        <div class="accordion-body">
+          <ul class="list">
+            <li><strong>Hook:</strong> "Esto es lo que las marcas buscan cuando contratan una creadora UGC (y así lo hago yo)"</li>
+            <li><strong>Desarrollo:</strong> mini detrás de cámara grabando un producto — ángulos, guion, luz</li>
+            <li><strong>CTA:</strong> "Si tienes una marca y quieres contenido así, escríbeme por DM."</li>
+          </ul>
+          <span id="script5" style="display:none">Hook: Esto es lo que las marcas buscan cuando contratan una creadora UGC (y así lo hago yo)
+Desarrollo: mini detrás de cámara grabando un producto — ángulos, guion, luz
+CTA: Si tienes una marca y quieres contenido así, escríbeme por DM.</span>
+          <button class="copy-btn" data-target="script5">📋 Copiar guion</button>
+        </div>
+      </div>
+
+      <h3>3 ideas de contenido UGC tipo marcas</h3>
+      <ol class="list">
+        <li>Unboxing + primera impresión de un producto de belleza o moda (como ya hiciste con SHEIN): reacción genuina + 3 razones por las que lo recomiendas.</li>
+        <li>"Un día en mi vida" usando el producto: integración natural en tu rutina real, no solo mostrar el empaque.</li>
+        <li>Antes/después o comparación: cómo cambia un outfit con vs. sin la prenda, o cómo mejora una rutina con el producto.</li>
+      </ol>
+
+      <h3>Ideas fáciles de ejecutar sin producción</h3>
+      <ul class="list">
+        <li>Selfie video hablando a cámara compartiendo un tip o una opinión (celular, luz natural, cero edición).</li>
+        <li>Grabación frente al espejo mostrando un outfit con texto superpuesto en la app de Instagram.</li>
+        <li>Carrusel de fotos con texto (Canva) compartiendo una lista de tips de imagen o feminidad.</li>
+      </ul>
+
+      <div class="page-nav"></div>
+    </section>
+
+    <!-- 6. MONETIZACIÓN -->
+    <section class="page" id="monetizacion" data-order="6">
+      <h2><span class="section-icon">💰</span> 6. Monetización como UGC</h2>
+
+      <h3>Cómo empezar a generar ingresos en el primer mes</h3>
+      <ul class="list">
+        <li>Reactiva a las marcas con las que YA trabajaste (SHEIN, la marca de camisetas, la pastelería, la hamburguesería, Vogue Boombastic): ya tienen confianza en ti, es más fácil venderles de nuevo que conseguir una marca nueva.</li>
+        <li>Ten siempre 3-5 piezas de contenido de muestra (reels o fotos) listas para enviar en el mismo mensaje de contacto — así no dependes de que la marca "te descubra", le muestras directamente lo que puedes hacer por ella.</li>
+        <li>No necesitas ser experta en negociar collabs para empezar: entre más contenido atractivo y variado tengas listo para mostrar, más fácil se vuelve la conversación con la marca.</li>
+      </ul>
+
+      <h3>Contenido que le atrae a las marcas</h3>
+      <p style="font-size:13px; color:var(--gray); margin-top:-6px;">Formatos sencillos de grabar, sin necesidad de experiencia negociando, que hoy son los que más buscan las marcas para usar en sus propios canales.</p>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <div class="price-icon">🎥</div>
+          <div class="price-name">Reseña honesta de producto</div>
+          <div class="price-desc">Grábate probando el producto en el momento, con tu reacción real — esto es lo que más buscan las marcas hoy, por encima del contenido muy producido.</div>
+        </div>
+        <div class="price-card highlight">
+          <div class="price-icon">📦</div>
+          <div class="price-name">Unboxing con contexto</div>
+          <div class="price-desc">Unboxing + primera impresión, mostrando para qué lo vas a usar en tu día a día (no solo el empaque).</div>
+        </div>
+        <div class="price-card">
+          <div class="price-icon">🛍️</div>
+          <div class="price-name">Producto integrado en tu rutina</div>
+          <div class="price-desc">Un "get ready with me", un outfit o una receta donde el producto aparece de forma natural, no aislado.</div>
+        </div>
+      </div>
+
+      <h3>Qué tipo de contenido puedes vender a marcas</h3>
+      <ul class="list">
+        <li>UGC puro: video vertical tipo testimonial o uso de producto, pensado para que la marca lo use en sus propios anuncios.</li>
+        <li>Contenido + publicación en tu feed/reels, aprovechando tu alcance de 23.700 seguidores como parte del paquete.</li>
+        <li>Fotografía de producto estilo editorial, aprovechando tu perfil de modelo.</li>
+      </ul>
+
+      <h3>Cómo mostrar tu valor con lo que ya tienes</h3>
+      <p>A diferencia de una creadora que recién empieza, tú ya tienes una cuenta de 23.7K y colaboraciones reales. Tu reto no es demostrar que "vales" con pocos seguidores, sino mostrar profesionalismo y resultados concretos: arma un portafolio con clips de calidad, incluye capturas de métricas de tus posts con marca, y muestra versatilidad (moda, belleza, comida, lifestyle).</p>
+
+      <div class="page-nav"></div>
+    </section>
+
+    <!-- 7. PROSPECCIÓN -->
+    <section class="page" id="prospeccion" data-order="7">
+      <h2><span class="section-icon">🤝</span> 7. Prospección de marcas</h2>
+
+      <h3>El proceso, en 3 pasos</h3>
+      <div class="steps-row">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Reactivar</div>
+          <div class="step-desc">Contacta a las marcas con las que ya colaboraste ofreciendo una nueva colaboración.</div>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Prospección en frío</div>
+          <div class="step-desc">Arma una lista de marcas afines y envía un mensaje personalizado cada semana.</div>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Seguimiento</div>
+          <div class="step-desc">Si no responden en 3-4 días, envía un segundo mensaje corto y amable.</div>
+        </div>
+      </div>
+
+      <h3>¿A qué marcas apuntarle primero?</h3>
+      <p style="font-size:13px; color:var(--gray); margin-top:-6px;">Empieza por categorías donde ya tienes casos reales que mostrar — es mucho más fácil cerrar una marca nueva cuando le enseñas un ejemplo parecido.</p>
+      <table>
+        <tr><th>Categoría</th><th>Por qué encaja contigo</th><th>Ejemplo de caso ya hecho</th></tr>
+        <tr><td>👗 Moda y accesorios</td><td>Ya tienes buen ojo para outfits y styling</td><td>SHEIN</td></tr>
+        <tr><td>💄 Belleza y maquillaje</td><td>Contenido de rutina y producto ya lo dominas</td><td>Vogue Boombastic</td></tr>
+        <tr><td>🍰 Gastronomía local</td><td>Ideal para vlogs diarios y contenido de "un día en tu vida"</td><td>Pastelería y hamburguesería</td></tr>
+        <tr><td>🧴 Estilo de vida / bienestar</td><td>Encaja con tu perfil de modelo y tu bio de imagen</td><td>Aún por explorar</td></tr>
+        <tr><td>🇨🇴 Marcas colombianas emergentes</td><td>Suelen responder más rápido y son buen punto de partida</td><td>Aún por explorar</td></tr>
+      </table>
+
+      <h3>Rutina semanal de prospección</h3>
+      <div class="task-card neutral">
+        <div class="task-group-title"><strong>📆 Marca cada tarea a medida que la hagas</strong> <span class="task-count" data-group="prospec"></span></div>
+        <div class="task"><input type="checkbox" id="t-pr-1" data-key="t-pr-1"><label for="t-pr-1"><strong>Lunes:</strong> busca y guarda 5 marcas nuevas afines a tu contenido.</label></div>
+        <div class="task"><input type="checkbox" id="t-pr-2" data-key="t-pr-2"><label for="t-pr-2"><strong>Martes:</strong> envía un mensaje personalizado a 3 marcas de tu lista.</label></div>
+        <div class="task"><input type="checkbox" id="t-pr-3" data-key="t-pr-3"><label for="t-pr-3"><strong>Miércoles:</strong> da seguimiento a los mensajes de la semana pasada sin respuesta.</label></div>
+        <div class="task"><input type="checkbox" id="t-pr-4" data-key="t-pr-4"><label for="t-pr-4"><strong>Jueves:</strong> envía 2 correos a marcas más grandes o con equipo de marketing.</label></div>
+        <div class="task"><input type="checkbox" id="t-pr-5" data-key="t-pr-5"><label for="t-pr-5"><strong>Viernes:</strong> revisa qué funcionó esta semana y actualiza tu portafolio si hace falta.</label></div>
+      </div>
+
+      <h3>Canales para contactar</h3>
+      <ul class="list">
+        <li><strong>DM de Instagram:</strong> el canal más directo e informal, ideal para marcas pequeñas y medianas.</li>
+        <li><strong>Correo electrónico:</strong> más profesional, útil para marcas grandes o con equipo de marketing formal.</li>
+        <li><strong>WhatsApp Business:</strong> rápido y cercano si ya tienes el contacto de la marca.</li>
+        <li><strong>LinkedIn:</strong> útil para llegar a agencias de marketing/UGC y marcas más corporativas.</li>
+      </ul>
+
+      <h3>Plantilla de seguimiento (cópiala en Notion o Excel)</h3>
+      <p style="font-size:13px; color:var(--gray); margin-top:-6px;">Así llevas control de a quién le escribiste y cuándo darle seguimiento, sin perder ningún contacto.</p>
+      <table>
+        <tr><th>Marca</th><th>Canal</th><th>Fecha de contacto</th><th>Estado</th><th>Próximo paso</th></tr>
+        <tr><td>SHEIN</td><td>DM</td><td>ej: 10 jul</td><td>Respondió</td><td>Enviar propuesta nueva</td></tr>
+        <tr><td>[Marca nueva 1]</td><td>Correo</td><td></td><td>Enviado</td><td>Seguimiento en 4 días</td></tr>
+        <tr><td>[Marca nueva 2]</td><td>DM</td><td></td><td>Por enviar</td><td>—</td></tr>
+      </table>
+
+      <h3>Mensaje corto (DM)</h3>
+      <div class="quote-card">
+        <blockquote id="dmMsg">¡Hola [marca]! Soy María José (@smajosbeauty), creadora de contenido de moda, belleza y estilo de vida. Me encantó trabajar con ustedes en [colaboración pasada] 💛 Estoy armando contenido nuevo para este semestre y me encantaría ver cómo podemos colaborar de nuevo. Te comparto mi portafolio: [link]. ¿Con quién puedo hablar sobre esto?</blockquote>
+        <div class="quote-actions"><button class="copy-btn" data-target="dmMsg">📋 Copiar mensaje</button></div>
+      </div>
+
+      <h3>Correo</h3>
+      <p><strong>Asunto:</strong> Propuesta de colaboración de contenido — María José (@smajosbeauty)</p>
+      <div class="quote-card">
+        <blockquote id="emailMsg">Hola [nombre],
+
+Soy María José (@smajosbeauty), creadora de contenido de moda, belleza y estilo de vida con 23.700 seguidores en Instagram. Ya he trabajado con marcas como SHEIN y la Selección Colombia, y me encantaría contarte cómo puedo ayudar a [marca] con contenido UGC.
+
+Aquí puedes ver mi portafolio: [link]
+
+¿Agendamos una llamada de 15 minutos esta semana para conversarlo?
+
+Saludos,
+María José</blockquote>
+        <div class="quote-actions"><button class="copy-btn" data-target="emailMsg">📋 Copiar correo</button></div>
+      </div>
+
+      <div class="page-nav"></div>
+    </section>
+
+    <!-- 8. PORTAFOLIO -->
+    <section class="page" id="portafolio" data-order="8">
+      <h2><span class="section-icon">🗂️</span> 8. Análisis del portafolio</h2>
+      <p>El sitio de Canva (smajosbeauty.my.canva.site) es una página construida en JavaScript, por lo que no pude renderizarla con mis herramientas de lectura automática para revisar el detalle pixel a pixel. Este análisis se basa en los problemas que tú misma identificaste, más buenas prácticas de portafolios UGC para corregirlos de forma concreta.</p>
+
+      <div class="insight-grid">
+        <div class="insight-card bad">
+          <div class="insight-head">⚠️ Problemas identificados</div>
+          <ul>
+            <li><span class="mark">•</span> Los videos no se visualizan bien (enlace externo vs. archivo nativo, o preview sin cargar).</li>
+            <li><span class="mark">•</span> No es claro quién eres ni qué ofreces: falta presentación clara al inicio.</li>
+            <li><span class="mark">•</span> No hay un diferenciador visible, pese a tener marcas reconocidas y perfil de modelo/ingeniera.</li>
+          </ul>
+        </div>
+        <div class="insight-card good">
+          <div class="insight-head">✅ Qué agregar o cambiar</div>
+          <ul>
+            <li><span class="mark">•</span> Video de presentación de 15-30 seg al inicio del sitio.</li>
+            <li><span class="mark">•</span> Sección "Quién soy" corta + sección de servicios con paquetes claros.</li>
+            <li><span class="mark">•</span> Casos de éxito con capturas de las marcas con las que ya trabajaste.</li>
+            <li><span class="mark">•</span> Botón de contacto visible en cada sección, no solo al final.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="task-card neutral">
+        <div class="task-group-title"><strong>🛠️ Checklist de arreglos</strong> <span class="task-count" data-group="port"></span></div>
+        <div class="task"><input type="checkbox" id="t-p1" data-key="t-p1"><label for="t-p1">Video de presentación personal de 15-30 segundos al inicio del sitio: quién eres, qué haces, con qué marcas has trabajado.</label></div>
+        <div class="task"><input type="checkbox" id="t-p2" data-key="t-p2"><label for="t-p2">Sección "Quién soy" corta (3-4 líneas) con foto, usando el mensaje de tu bio optimizada.</label></div>
+        <div class="task"><input type="checkbox" id="t-p3" data-key="t-p3"><label for="t-p3">Sección de servicios con paquetes claros (o botón "cotiza aquí").</label></div>
+        <div class="task"><input type="checkbox" id="t-p4" data-key="t-p4"><label for="t-p4">Sección de casos de éxito: capturas de las marcas con las que ya trabajaste.</label></div>
+        <div class="task"><input type="checkbox" id="t-p5" data-key="t-p5"><label for="t-p5">Videos subidos como archivo nativo en Canva, verificando que el preview cargue antes de publicar.</label></div>
+        <div class="task"><input type="checkbox" id="t-p6" data-key="t-p6"><label for="t-p6">Botón de contacto (WhatsApp o correo) visible en cada sección, no solo al final.</label></div>
+      </div>
+
+      <h3>Estructura sugerida (de arriba hacia abajo)</h3>
+      <div class="wireframe">
+        <div class="wireframe-bar"><span></span><span></span><span></span></div>
+        <div class="wf-block wf-hero"><span class="wf-icon">🖼️</span> 1. Portada — foto + frase de posicionamiento + botón de contacto</div>
+        <div class="wf-block wf-video"><span class="wf-icon">▶️</span> 2. Video de presentación personal (15-30 seg)</div>
+        <div class="wf-block"><span class="wf-icon">🙋‍♀️</span> 3. Quién soy (bio corta + foto)</div>
+        <div class="wf-block"><span class="wf-icon">🧾</span> 4. Servicios (qué tipo de contenido ofreces)</div>
+        <div class="wf-block"><span class="wf-icon">🎞️</span> 5. Portafolio de trabajos, por categoría</div>
+        <div class="wf-block"><span class="wf-icon">🏷️</span> 6. Marcas con las que has trabajado</div>
+        <div class="wf-block"><span class="wf-icon">💬</span> 7. Testimonios, si los tienes</div>
+        <div class="wf-block"><span class="wf-icon">📩</span> 8. Contacto (formulario + redes + correo)</div>
+      </div>
+
+      <h3>Tu diferenciador</h3>
+      <p>La combinación de ingeniera + modelo + creadora es un ángulo que casi ninguna otra creadora UGC puede usar. Conviértelo en tu frase de posicionamiento —algo como "la creadora que combina precisión técnica con sensibilidad estética", ajustado a tu tono real— y úsalo tanto en tu bio de Instagram como en la portada del portafolio.</p>
+
+      <div class="page-nav"></div>
+    </section>
+
+    <!-- 9. IDENTIDAD DE MARCA -->
+    <section class="page" id="identidad" data-order="9">
+      <h2><span class="section-icon">🎨</span> 9. Identidad de marca</h2>
+
+      <h3>Paleta de colores sugerida</h3>
+      <p>Basada en lo que ya tienes (tonos de gala en vino y dorado) más un acento cálido para lo cercano y femenino. Haz clic en un color para copiar su código hex:</p>
+      <div class="moodboard">
+        <button class="swatch-lg copy-btn" data-copy-text="#7B1E3A" style="background:#7B1E3A;"><span class="swatch-label">Vino<br>#7B1E3A</span></button>
+        <button class="swatch-lg copy-btn" data-copy-text="#C9A227" style="background:#C9A227;"><span class="swatch-label">Dorado<br>#C9A227</span></button>
+        <button class="swatch-lg copy-btn" data-copy-text="#1A1A1A" style="background:#1A1A1A;"><span class="swatch-label">Negro<br>#1A1A1A</span></button>
+        <button class="swatch-lg copy-btn" data-copy-text="#F5F1EC" style="background:#F5F1EC; border:1px solid #ddd;"><span class="swatch-label">Blanco hueso<br>#F5F1EC</span></button>
+        <button class="swatch-lg copy-btn" data-copy-text="#D9A5B3" style="background:#D9A5B3;"><span class="swatch-label">Rosa palo<br>#D9A5B3</span></button>
+      </div>
+
+      <h3>Tipografía</h3>
+      <div class="font-preview">
+        <div class="font-sample serif-sample">
+          <div class="big">Aa</div>
+          <div class="cap">Playfair Display — Títulos</div>
+        </div>
+        <div class="font-sample sans-sample">
+          <div class="big">Aa</div>
+          <div class="cap">Poppins — Texto</div>
+        </div>
+      </div>
+      <p>Esta combinación clásica + moderna refleja bien "elegancia con cercanía", el equilibrio que tu bio ya promete.</p>
+
+      <h3>Estilo visual</h3>
+      <ul class="list">
+        <li>Luz cálida y natural en todas las piezas (evita mezclar temperaturas de color entre fotos).</li>
+        <li>Fondos neutros o con textura, evitando fondos blancos genéricos de estudio.</li>
+        <li>Un mismo preset o filtro de edición para todo el feed.</li>
+        <li>Prioriza primeros planos y planos medios: tu fuerte es el rostro y la expresión.</li>
+      </ul>
+
+      <h3>Cómo mantener coherencia en redes</h3>
+      <ul class="list">
+        <li>Usa la misma paleta de colores en tus templates de Reels y Stories en Canva.</li>
+        <li>Unifica el estilo de portada de tus destacados (highlights).</li>
+        <li>Define una firma visual simple —por ejemplo, el mismo tipo de marco o etiqueta de texto— para que tus reels se reconozcan de inmediato.</li>
+      </ul>
+
+      <div class="page-nav"></div>
+    </section>
+
+    <!-- 10. VOZ -->
+    <section class="page" id="voz" data-order="10">
+      <h2><span class="section-icon">🎤</span> 10. Voz y comunicación</h2>
+
+      <h3>Usa tu tono real</h3>
+      <p>Habla como hablas en persona, no con un guion memorizado. Tu audiencia conecta más con naturalidad que con perfección.</p>
+
+      <div class="insight-grid">
+        <div class="insight-card good">
+          <div class="insight-head">✅ Cómo sonar más cercana y auténtica</div>
+          <ul>
+            <li><span class="mark">•</span> Usa expresiones coloquiales colombianas naturales, las tuyas, no genéricas.</li>
+            <li><span class="mark">•</span> Comparte opiniones y anécdotas, no solo información o estética.</li>
+            <li><span class="mark">•</span> Haz preguntas directas a tu audiencia para invitar a comentar.</li>
+            <li><span class="mark">•</span> Muestra imperfección: bloopers, risas, tomas falsas.</li>
+          </ul>
+        </div>
+        <div class="insight-card bad">
+          <div class="insight-head">🚫 Qué debes evitar</div>
+          <ul>
+            <li><span class="mark">•</span> Sobreactuar frente a cámara o forzar expresiones "de anuncio".</li>
+            <li><span class="mark">•</span> Frases de marketing genéricas ("no te puedes perder esto").</li>
+            <li><span class="mark">•</span> Copiar tendencias sin adaptarlas a tu personalidad.</li>
+            <li><span class="mark">•</span> Hablar solo de estética sin compartir opinión o contexto.</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="closing">
+        <div class="closing-icon">✨</div>
+        <div>Con tu punto de partida (23.7K seguidores, colaboraciones reales, buena presencia en cámara) tienes una base sólida para llegar a tus 28.700 seguidores en 3 meses. La clave no es solo publicar más, sino ordenar tu mensaje y subir tu engagement para que cada publicación trabaje a tu favor: así creces más rápido y conviertes ese alcance en ingresos constantes. Empieza por la bio, graba sintiéndote tú misma en vez de forzada, reactiva las marcas con las que ya trabajaste, y sostén las 3 publicaciones semanales sin buscar perfección.</div>
+      </div>
+
+      <div class="page-nav"></div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="pagefoot">
+  Asesoría preparada para @smajosbeauty · María José — Julio 2026 · Tu progreso se guarda automáticamente en este navegador.
+</footer>
+
+<script>
+(function(){
+  const ORDER = ["resumen","diagnostico","bio","plan-accion","plan-contenido","ideas-guiones","monetizacion","prospeccion","portafolio","identidad","voz"];
+  const TOTAL_SECTIONS = ORDER.length - 1; // excluye "resumen"
+  const pages = {};
+  ORDER.forEach(id => pages[id] = document.getElementById(id));
+  const navButtons = Array.from(document.querySelectorAll('.nav-item'));
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  const menuToggle = document.getElementById('menuToggle');
+
+  const STORE_KEY = 'smajosbeauty_asesoria_v1';
+  function loadStore(){
+    try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; } catch(e){ return {}; }
+  }
+  function saveStore(store){
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch(e){}
+  }
+  let store = loadStore();
+  store.done = store.done || {};
+  store.tasks = store.tasks || {};
+
+  /* ---------- Navigation ---------- */
+  function goTo(id){
+    if(!pages[id]) return;
+    ORDER.forEach(pid => pages[pid].classList.toggle('active', pid === id));
+    navButtons.forEach(b => b.classList.toggle('active', b.dataset.target === id));
+    window.location.hash = id;
+    window.scrollTo(0,0);
+    closeSidebar();
+    renderPageNav(id);
+  }
+
+  navButtons.forEach(btn => btn.addEventListener('click', () => goTo(btn.dataset.target)));
+  document.querySelectorAll('[data-goto]').forEach(btn => {
+    btn.addEventListener('click', () => goTo(btn.dataset.goto));
+  });
+
+  window.addEventListener('hashchange', () => {
+    const id = window.location.hash.replace('#','');
+    if(pages[id]) goTo(id);
+  });
+
+  /* ---------- Mobile sidebar ---------- */
+  function openSidebar(){ sidebar.classList.add('open'); overlay.classList.add('show'); }
+  function closeSidebar(){ sidebar.classList.remove('open'); overlay.classList.remove('show'); }
+  menuToggle.addEventListener('click', () => {
+    sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
+  });
+  overlay.addEventListener('click', closeSidebar);
+
+  /* ---------- Bottom prev/next + mark done ---------- */
+  function renderPageNav(id){
+    const container = pages[id].querySelector('.page-nav');
+    if(!container) return;
+    const idx = ORDER.indexOf(id);
+    const prevId = idx > 0 ? ORDER[idx-1] : null;
+    const nextId = idx < ORDER.length-1 ? ORDER[idx+1] : null;
+    const isNumbered = idx >= 1;
+    const isDone = !!store.done[id];
+
+    container.innerHTML = '';
+
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'btn btn-ghost';
+    prevBtn.textContent = prevId ? '← Anterior' : '';
+    if(prevId){ prevBtn.addEventListener('click', () => goTo(prevId)); } else { prevBtn.style.visibility='hidden'; }
+
+    const centerWrap = document.createElement('div');
+    centerWrap.style.display = 'flex';
+    centerWrap.style.flexDirection = 'column';
+    centerWrap.style.alignItems = 'center';
+    centerWrap.style.gap = '8px';
+
+    if(isNumbered){
+      const markBtn = document.createElement('button');
+      markBtn.className = 'btn btn-outline mark-done-btn' + (isDone ? ' is-done' : '');
+      markBtn.innerHTML = isDone ? '✓ Sección revisada' : 'Marcar sección como revisada';
+      markBtn.addEventListener('click', () => {
+        store.done[id] = !store.done[id];
+        saveStore(store);
+        updateSidebarProgress();
+        renderPageNav(id);
+      });
+      centerWrap.appendChild(markBtn);
+
+      const info = document.createElement('div');
+      info.className = 'center-info';
+      info.textContent = 'Sección ' + idx + ' de ' + TOTAL_SECTIONS;
+      centerWrap.appendChild(info);
+    }
+
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'btn btn-primary';
+    nextBtn.textContent = nextId ? 'Siguiente →' : '';
+    if(nextId){ nextBtn.addEventListener('click', () => goTo(nextId)); } else { nextBtn.style.visibility='hidden'; }
+
+    container.appendChild(prevBtn);
+    container.appendChild(centerWrap);
+    container.appendChild(nextBtn);
+  }
+
+  /* ---------- Sidebar progress ---------- */
+  const ringFg = document.getElementById('ringFg');
+  const progressLabel = document.getElementById('progressLabel');
+  const CIRC = 2 * Math.PI * 20; // r=20
+
+  function updateSidebarProgress(){
+    let doneCount = 0;
+    navButtons.forEach(btn => {
+      const id = btn.dataset.target;
+      if(id === 'resumen') return;
+      const done = !!store.done[id];
+      btn.classList.toggle('done', done);
+      if(done) doneCount++;
+    });
+    progressLabel.textContent = doneCount + '/' + TOTAL_SECTIONS;
+    const pct = doneCount / TOTAL_SECTIONS;
+    const offset = CIRC * (1 - pct);
+    ringFg.style.strokeDasharray = CIRC.toFixed(1);
+    ringFg.style.strokeDashoffset = offset.toFixed(1);
+  }
+
+  /* ---------- Copy buttons ---------- */
+  function fallbackCopy(text){
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.focus(); ta.select();
+    try { document.execCommand('copy'); } catch(e){}
+    document.body.removeChild(ta);
+  }
+  function copyText(text){
+    if(navigator.clipboard && window.isSecureContext){
+      navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+    } else {
+      fallbackCopy(text);
+    }
+  }
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      let text = '';
+      if(btn.dataset.copyText){
+        text = btn.dataset.copyText;
+      } else if(btn.dataset.target){
+        const el = document.getElementById(btn.dataset.target);
+        if(el) text = el.textContent.trim();
+      }
+      if(!text) return;
+      copyText(text);
+      const isSwatch = btn.classList.contains('swatch-lg');
+      if(isSwatch){
+        const label = btn.querySelector('.swatch-label');
+        const original = label.innerHTML;
+        label.innerHTML = '✓ Copiado';
+        setTimeout(() => { label.innerHTML = original; }, 1200);
+      } else {
+        const original = btn.innerHTML;
+        btn.classList.add('copied');
+        btn.innerHTML = '✓ Copiado';
+        setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = original; }, 1500);
+      }
+    });
+  });
+
+  /* ---------- Accordions ---------- */
+  document.querySelectorAll('.accordion-header').forEach(header => {
+    header.addEventListener('click', () => {
+      header.parentElement.classList.toggle('open');
+    });
+  });
+
+  /* ---------- Task checkboxes ---------- */
+  const checkboxes = Array.from(document.querySelectorAll('.task input[type=checkbox]'));
+  function refreshGroupCounts(){
+    document.querySelectorAll('.task-group-title').forEach(title => {
+      let el = title.nextElementSibling;
+      let total = 0, checked = 0;
+      while(el && el.classList.contains('task')){
+        total++;
+        const cb = el.querySelector('input[type=checkbox]');
+        if(cb && cb.checked) checked++;
+        el = el.nextElementSibling;
+      }
+      const countEl = title.querySelector('.task-count');
+      if(countEl) countEl.textContent = checked + '/' + total;
+    });
+  }
+  checkboxes.forEach(cb => {
+    const key = cb.dataset.key;
+    if(store.tasks[key]) cb.checked = true;
+    cb.closest('.task').classList.toggle('checked', cb.checked);
+    cb.addEventListener('change', () => {
+      store.tasks[key] = cb.checked;
+      saveStore(store);
+      cb.closest('.task').classList.toggle('checked', cb.checked);
+      refreshGroupCounts();
+    });
+  });
+
+  /* ---------- Init ---------- */
+  updateSidebarProgress();
+  refreshGroupCounts();
+  const startId = (window.location.hash || '#resumen').replace('#','');
+  goTo(pages[startId] ? startId : 'resumen');
+})();
+</script>
+
+</body>
+</html>
